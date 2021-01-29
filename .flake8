@@ -1,0 +1,6 @@
+[flake8]
+exclude = .git,__pycache__,venv
+inline-quotes = double
+multiline-quotes = """
+builtins = _
+max-line-length = 120
