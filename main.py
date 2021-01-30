@@ -48,21 +48,24 @@ class LissajousWindow(qt.QMainWindow):
         # В общем случае таких областей на холсте может быть несколько
         # Аргументы add_subplot() в данном случае:
         # ширина сетки, высота сетки, номер графика в сетке
-        self._ax = self._fig.add_subplot(1, 1, 1)
         
+        self._ax = self._fig.add_subplot(1, 1, 1)
+        self._fig.axes[0].get_xaxis().set_visible(False)
+        self._fig.axes[0].get_yaxis().set_visible(False)
+        self._ax.set_axis_off()
         # Создаём qt-виджет холста для встраивания холста
         # matplotlib fig в окно Qt.
         self._fc = FigureCanvas(self._fig)
         # Связываем созданный холст c окном
         self._fc.setParent(self)
         # Настраиваем размер и положение холста
-        self._fc.resize(400, 300)
+        self._fc.resize(400, 400)
         self._fc.move(20, 20)
 
         # Первичное построение фигуры
         self.plot_lissajous_figure()
 
-        self.resize(650, 300)
+        self.resize(650, 450)
 
         self.plot_button.clicked.connect(self.plot_button_click_handler)
         self.save_button.clicked.connect(self.save_button_click_handler)
