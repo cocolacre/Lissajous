@@ -14,9 +14,9 @@ from lissajousgen import LissajousGenerator, lissajous_figure
 
 # Настройки фигуры по умолчанию
 default_settings = {
-    "freq_x": 2,
+    "freq_x": 1,
     "freq_y": 3,
-    "phase_shift": 0.5,
+    "phase_shift": 0.25,
     "resolution": 200,
     "color": "midnightblue",
     "width": 2
@@ -42,8 +42,7 @@ class LissajousWindow(qt.QMainWindow):
             version
         ))
         scriptDir = os.path.dirname(os.path.realpath(__file__))
-        self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + "icon.bmp"))
-
+        self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + "icon.png"))
         # Создаём холст matplotlib
         self._fig = plt.figure(figsize=(4, 3), dpi=72)
         # Добавляем на холст matplotlib область для построения графиков.

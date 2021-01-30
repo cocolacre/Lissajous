@@ -38,6 +38,6 @@ class LissajousGenerator:
         Генерирует фигуру (массивы x и y координат точек) с заданными частотами.
         """
         t_array = np.linspace(0, 2 * np.pi, self._resolution)
-        x_array = np.sin(freq_x * t_array + phase_shift *np.pi * 0.5)
-        y_array = np.cos(freq_y * t_array  )
+        x_array = np.sin(freq_x * t_array + phase_shift *np.pi )
+        y_array = np.sin(freq_y * t_array  )
         return lissajous_figure(x_array, y_array)
