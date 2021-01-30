@@ -95,6 +95,7 @@ class LissajousWindow(qt.QMainWindow):
 
         # Генерируем сигнал для построения
         self.generator = LissajousGenerator()
+        #self.generator = LissajousGenerator(resolution=200)
         figure = self.generator.generate_figure(settings["freq_x"],
                                                 settings["freq_y"])
 

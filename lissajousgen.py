@@ -25,7 +25,7 @@ class LissajousGenerator:
         # Пока не трогать.
         # P.S. В новом генераторе задержка будет только при инициализации.
         # Фигуры будут генерироваться так же быстро, как и сейчас.
-        time.sleep(1)
+        #time.sleep(1)
 
     def set_resolution(self, resolution):
         """
@@ -37,7 +37,7 @@ class LissajousGenerator:
         """
         Генерирует фигуру (массивы x и y координат точек) с заданными частотами.
         """
-        t = np.linspace(0, 2 * np.pi, self._resolution)
-        x = np.sin(freq_x * t)
-        y = np.cos(freq_y * t)
-        return lissajous_figure(x, y)
+        t_array = np.linspace(0, 2 * np.pi, self._resolution)
+        x_array = np.sin(freq_x * t_array)
+        y_array = np.cos(freq_y * t_array)
+        return lissajous_figure(x_array, y_array)
