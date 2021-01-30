@@ -49,7 +49,7 @@ class LissajousWindow(qt.QMainWindow):
         # Аргументы add_subplot() в данном случае:
         # ширина сетки, высота сетки, номер графика в сетке
         self._ax = self._fig.add_subplot(1, 1, 1)
-
+        
         # Создаём qt-виджет холста для встраивания холста
         # matplotlib fig в окно Qt.
         self._fc = FigureCanvas(self._fig)

@@ -17,7 +17,7 @@ class LissajousGenerator:
     """
     Генерирует фигуры Лиссажу с заданными параметрами
     """
-    def __init__(self, resolution=20):
+    def __init__(self, resolution=200):
         self.set_resolution(resolution)
         
         # Эта задержка эмулирует процедуру инициализации следующей версии генератора.
