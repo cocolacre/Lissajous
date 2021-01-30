@@ -16,6 +16,8 @@ from lissajousgen import LissajousGenerator, lissajous_figure
 default_settings = {
     "freq_x": 2,
     "freq_y": 3,
+    "phase_shift": 0.5,
+    "resolution": 200,
     "color": "midnightblue",
     "width": 2
 }
@@ -79,6 +81,8 @@ class LissajousWindow(qt.QMainWindow):
 
         settings["freq_x"] = float(self.freq_x_lineedit.text())
         settings["freq_y"] = float(self.freq_y_lineedit.text())
+        settings["phase_shift"] = float(self.phase_shift_lineedit.text())
+        settings["resolution"] = int(self.resolution_lineedit.text())
         settings["color"] = mpl_color_dict[self.color_combobox.currentText()]
         settings["width"] = int(self.width_combobox.currentText())
 
@@ -94,10 +98,11 @@ class LissajousWindow(qt.QMainWindow):
             line.remove()
 
         # Генерируем сигнал для построения
-        self.generator = LissajousGenerator()
+        self.generator = LissajousGenerator(settings["resolution"])
         #self.generator = LissajousGenerator(resolution=200)
         figure = self.generator.generate_figure(settings["freq_x"],
-                                                settings["freq_y"])
+                                                settings["freq_y"],
+                                                settings["phase_shift"])
 
         # Строим график
         self._ax.plot(figure.x_arr, figure.y_arr,
