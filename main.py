@@ -2,6 +2,8 @@ import sys
 import os
 import PyQt5.QtWidgets as qt
 from PyQt5 import uic, QtGui
+import matplotlib
+matplotlib.use("Agg")
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 import numpy as np
