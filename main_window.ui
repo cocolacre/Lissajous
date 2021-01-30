@@ -20,7 +20,7 @@
       <x>430</x>
       <y>20</y>
       <width>206</width>
-      <height>254</height>
+      <height>280</height>
      </rect>
     </property>
     <layout class="QFormLayout" name="formLayout">
@@ -55,7 +55,7 @@
      <item row="4" column="0">
       <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>Сдвиг фаз δ (𝜋 радиан)</string>
+        <string>Сдвиг фаз (δ)</string>
        </property>
       </widget>
      </item>
@@ -149,7 +149,7 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="0" colspan="2">
+     <item row="10" column="0" colspan="2">
       <widget class="QPushButton" name="save_button">
        <property name="text">
         <string>Сохранить фигуру в файл</string>
@@ -159,7 +159,21 @@
      <item row="1" column="0" colspan="2">
       <widget class="QLabel" name="label_equations">
        <property name="text">
-        <string>X = sin(at + δ), Y = sin(bt)</string>
+        <string>X = sin(at + δ𝜋), Y = sin(bt)</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Размер в пикселях</string>
+       </property>
+      </widget>
+     </item>
+     <item row="11" column="1">
+      <widget class="QLineEdit" name="image_size_lineedit">
+       <property name="text">
+        <string>400</string>
        </property>
       </widget>
      </item>

@@ -19,7 +19,7 @@ default_settings = {
     "phase_shift": 0.25,
     "resolution": 200,
     "color": "midnightblue",
-    "width": 2
+    "width": 2,
 }
 
 
@@ -43,8 +43,16 @@ class LissajousWindow(qt.QMainWindow):
         ))
         scriptDir = os.path.dirname(os.path.realpath(__file__))
         self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + "icon.bmp"))
+        
+        self.image_file_inches = 4
+        self.dpi = 100
+        self.desired_image_width = self.image_file_inches * self.dpi
+        self.default_inches = 4
+        
         # Создаём холст matplotlib
-        self._fig = plt.figure(figsize=(4, 3), dpi=72)
+        self._fig = plt.figure(figsize=(self.default_inches,
+                                         self.default_inches),
+                               dpi=self.dpi)
         # Добавляем на холст matplotlib область для построения графиков.
         # В общем случае таких областей на холсте может быть несколько
         # Аргументы add_subplot() в данном случае:
@@ -60,6 +68,7 @@ class LissajousWindow(qt.QMainWindow):
         # Связываем созданный холст c окном
         self._fc.setParent(self)
         # Настраиваем размер и положение холста
+        ##self._fc.resize(self.dpi*self.inches, self.dpi*self.inches)
         self._fc.resize(400, 400)
         self._fc.move(20, 20)
 
@@ -84,6 +93,7 @@ class LissajousWindow(qt.QMainWindow):
         settings["resolution"] = int(self.resolution_lineedit.text())
         settings["color"] = mpl_color_dict[self.color_combobox.currentText()]
         settings["width"] = int(self.width_combobox.currentText())
+
 
         # Перестраиваем график
         self.plot_lissajous_figure(settings)
@@ -126,8 +136,14 @@ class LissajousWindow(qt.QMainWindow):
             return
 
         #raise NotImplementedError("Тут всего одной строчки не хватает.")
-        self._fig.savefig(file_path)
-
+        
+        self.desired_image_width = int(self.image_size_lineedit.text())
+        figure = plt.gcf()
+        figure.set_size_inches(self.desired_image_width / self.dpi,
+                               self.desired_image_width / self.dpi)
+        #self._fig.savefig(file_path)
+        plt.savefig(file_path, dpi=self.dpi)
+        figure.set_size_inches(self.default_inches,self.default_inches)
 
 if __name__ == "__main__":
     # Инициализируем приложение Qt
