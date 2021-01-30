@@ -2,7 +2,7 @@ import sys
 import os
 import PyQt5.QtWidgets as qt
 from PyQt5 import uic, QtGui
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAggBase as FigureCanvas
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import matplotlib.pyplot as plt
 import numpy as np
 import json
