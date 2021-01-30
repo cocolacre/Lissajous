@@ -42,7 +42,7 @@ class LissajousWindow(qt.QMainWindow):
             version
         ))
         scriptDir = os.path.dirname(os.path.realpath(__file__))
-        self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + "icon.png"))
+        self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + "icon.bmp"))
         # Создаём холст matplotlib
         self._fig = plt.figure(figsize=(4, 3), dpi=72)
         # Добавляем на холст matplotlib область для построения графиков.

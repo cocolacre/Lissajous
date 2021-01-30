@@ -8,7 +8,6 @@ class lissajous_figure:
     Задаётся набором точек с координатами x и y.
     """
     def __init__(self, x_array, y_array):
-
         self.x_arr=x_array
         self.y_arr=y_array
 
@@ -20,13 +19,6 @@ class LissajousGenerator:
     def __init__(self, resolution=200):
         self.set_resolution(resolution)
         
-        # Эта задержка эмулирует процедуру инициализации следующей версии генератора.
-        # Задержка будет убрана после обновления.
-        # Пока не трогать.
-        # P.S. В новом генераторе задержка будет только при инициализации.
-        # Фигуры будут генерироваться так же быстро, как и сейчас.
-        #time.sleep(1)
-
     def set_resolution(self, resolution):
         """
         resolution определяет количество точек в кривой
