@@ -1,8 +1,9 @@
 import os
 import sys
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import matplotlib
 import PyQt5.QtWidgets as qt
 from PyQt5 import uic, QtGui
 import numpy as np
@@ -10,7 +11,6 @@ import json
 
 from lissajousgen import LissajousGenerator, lissajous_figure
 
-matplotlib.use("Agg")
 
 # Настройки фигуры по умолчанию
 default_settings = {
