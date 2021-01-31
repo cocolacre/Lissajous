@@ -1,3 +1,4 @@
+![alt text](https://i.ibb.co/8PnfsnX/lisaju.png)
 # Lissajous
 
 Генератор фигур Лиссажу с графическим интерфейсом.
