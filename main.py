@@ -129,7 +129,7 @@ class LissajousWindow(qt.QMainWindow):
         """
         Обработчик нажатия на кнопку сохранения настроек
         """
-        file_path, _ = qt.QFileDialog.getSaveFileName(self, "Сохранение изображения", "C:\\",
+        file_path, _ = qt.QFileDialog.getSaveFileName(self, "Сохранение изображения", "",
                                                             "PNG(*.png);;JPEG(*.jpg *.jpeg);;All Files(*.*) ")
 
         if file_path == "":
