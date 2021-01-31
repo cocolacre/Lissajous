@@ -23,7 +23,7 @@ default_settings = {
 }
 
 
-# Цвета для matplotlib
+# Цвета для matplotlib.
 with open("mpl.json", mode="r", encoding="utf-8") as f:
     mpl_color_dict = json.load(f)
 
@@ -49,7 +49,7 @@ class LissajousWindow(qt.QMainWindow):
         self.desired_image_width = self.image_file_inches * self.dpi
         self.default_inches = 4
         
-        # Создаём холст matplotlib
+        # Создаём холст matplotlib, ширина равна высоте.
         self._fig = plt.figure(figsize=(self.default_inches,
                                          self.default_inches),
                                dpi=self.dpi)
@@ -57,26 +57,28 @@ class LissajousWindow(qt.QMainWindow):
         # В общем случае таких областей на холсте может быть несколько
         # Аргументы add_subplot() в данном случае:
         # ширина сетки, высота сетки, номер графика в сетке
-        
         self._ax = self._fig.add_subplot(1, 1, 1)
+        
+        # Центрируем фигуру Лиссажу на холсте (в linux версии)
         self._fig.axes[0].get_xaxis().set_visible(False)
         self._fig.axes[0].get_yaxis().set_visible(False)
         self._ax.set_axis_off()
+        
         # Создаём qt-виджет холста для встраивания холста
         # matplotlib fig в окно Qt.
         self._fc = FigureCanvas(self._fig)
+
         # Связываем созданный холст c окном
         self._fc.setParent(self)
+
         # Настраиваем размер и положение холста
-        ##self._fc.resize(self.dpi*self.inches, self.dpi*self.inches)
         self._fc.resize(400, 400)
         self._fc.move(20, 20)
 
         # Первичное построение фигуры
         self.plot_lissajous_figure()
-
-        self.resize(650, 450)
-
+        self.resize(650, 440)
+        
         self.plot_button.clicked.connect(self.plot_button_click_handler)
         self.save_button.clicked.connect(self.save_button_click_handler)
 
@@ -84,16 +86,16 @@ class LissajousWindow(qt.QMainWindow):
         """
         Обработчик нажатия на кнопку применения настроек
         """
-        # Получаем данные из текстовых полей
+        # Получаем данные из текстовых полей интерфейса.
         settings = {}
-
         settings["freq_x"] = float(self.freq_x_lineedit.text())
         settings["freq_y"] = float(self.freq_y_lineedit.text())
         settings["phase_shift"] = float(self.phase_shift_lineedit.text())
         settings["resolution"] = int(self.resolution_lineedit.text())
+        # TODO: переименовать 'resolution' в 'num_points' или другое.
         settings["color"] = mpl_color_dict[self.color_combobox.currentText()]
         settings["width"] = int(self.width_combobox.currentText())
-
+        # TODO: обработка некорректных введенных значений.
 
         # Перестраиваем график
         self.plot_lissajous_figure(settings)
@@ -108,7 +110,7 @@ class LissajousWindow(qt.QMainWindow):
 
         # Генерируем сигнал для построения
         self.generator = LissajousGenerator(settings["resolution"])
-        #self.generator = LissajousGenerator(resolution=200)
+        # TODO: переименовать переменную figure (чтобы не путать с plt.figure)
         figure = self.generator.generate_figure(settings["freq_x"],
                                                 settings["freq_y"],
                                                 settings["phase_shift"])
@@ -136,14 +138,19 @@ class LissajousWindow(qt.QMainWindow):
             return
 
         #raise NotImplementedError("Тут всего одной строчки не хватает.")
+        # (?..)
         
+        # Сохраняем изображение с указанным в текстовом поле
+        # разрешением.
         self.desired_image_width = int(self.image_size_lineedit.text())
         figure = plt.gcf()
+        # Временно меняем размер фигуры (вместо копирования объекта)
         figure.set_size_inches(self.desired_image_width / self.dpi,
                                self.desired_image_width / self.dpi)
-        #self._fig.savefig(file_path)
         plt.savefig(file_path, dpi=self.dpi)
+        # Меняем размер фигуры обратно. 
         figure.set_size_inches(self.default_inches,self.default_inches)
+        # TODO: либо сохранять измененную копию объекта-фигуры, либо иначе.
 
 if __name__ == "__main__":
     # Инициализируем приложение Qt
