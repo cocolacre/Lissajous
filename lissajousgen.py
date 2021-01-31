@@ -9,8 +9,8 @@ class lissajous_figure:
     (?..) TODO: переработать модуль.
     """
     def __init__(self, x_array, y_array):
-        self.x_arr=x_array
-        self.y_arr=y_array
+        self.x_arr = x_array
+        self.y_arr = y_array
 
 
 class LissajousGenerator:
@@ -21,7 +21,7 @@ class LissajousGenerator:
         # TODO: убрать default значение.
         # TODO: переименовать 'resolution' в 'num_points' или другое.
         self.set_resolution(resolution)
-        
+
     def set_resolution(self, resolution):
         """
         resolution определяет количество точек в кривой
@@ -29,9 +29,10 @@ class LissajousGenerator:
         """
         self._resolution = resolution
 
-    def generate_figure(self, freq_x, freq_y,phase_shift):
+    def generate_figure(self, freq_x, freq_y, phase_shift):
         """
-        Генерирует фигуру (массивы x и y координат точек) с заданными частотами.
+        Генерирует фигуру (массивы x и y координат точек)
+        с заданными частотами.
         """
         t_array = np.linspace(0, 2 * np.pi, self._resolution)
         x_array = np.sin(freq_x * t_array + phase_shift * np.pi)

@@ -1,16 +1,16 @@
-import sys
 import os
+import sys
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+import matplotlib
 import PyQt5.QtWidgets as qt
 from PyQt5 import uic, QtGui
-import matplotlib
-matplotlib.use("Agg")
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import matplotlib.pyplot as plt
 import numpy as np
 import json
 
 from lissajousgen import LissajousGenerator, lissajous_figure
 
+matplotlib.use("Agg")
 
 # Настройки фигуры по умолчанию
 default_settings = {
@@ -36,45 +36,41 @@ class LissajousWindow(qt.QMainWindow):
         uic.loadUi("main_window.ui", self)
 
         # Ставим версию и иконку
+        # TODO: одной строкой (version=open(...).readlines()[0])
         with open("version.txt", "r") as f:
             version = f.readline()
-        self.setWindowTitle("Генератор фигур Лиссажу. Версия {}. CC BY-SA 4.0 Ivanov".format(
-            version
-        ))
+        win_title = "Генератор фигур Лиссажу. Версия {}. CC BY-SA 4.0 Ivanov"
+        self.setWindowTitle(win_title.format(version))
         scriptDir = os.path.dirname(os.path.realpath(__file__))
         self.setWindowIcon(QtGui.QIcon(scriptDir + os.path.sep + "icon.bmp"))
-        
+        # Устанавливаем размер фигуры и файла-изображения по умолчанию.
+        # TODO: убрать лишнее.
         self.image_file_inches = 4
         self.dpi = 100
         self.desired_image_width = self.image_file_inches * self.dpi
         self.default_inches = 4
-        
         # Создаём холст matplotlib, ширина равна высоте.
         self._fig = plt.figure(figsize=(self.default_inches,
-                                         self.default_inches),
+                                        self.default_inches),
                                dpi=self.dpi)
         # Добавляем на холст matplotlib область для построения графиков.
         # В общем случае таких областей на холсте может быть несколько
         # Аргументы add_subplot() в данном случае:
         # ширина сетки, высота сетки, номер графика в сетке
         self._ax = self._fig.add_subplot(1, 1, 1)
-        
         # Центрируем фигуру Лиссажу на холсте (в linux версии)
         self._fig.axes[0].get_xaxis().set_visible(False)
         self._fig.axes[0].get_yaxis().set_visible(False)
         self._ax.set_axis_off()
-        
         # Создаём qt-виджет холста для встраивания холста
         # matplotlib fig в окно Qt.
         self._fc = FigureCanvas(self._fig)
-
         # Связываем созданный холст c окном
         self._fc.setParent(self)
 
         # Настраиваем размер и положение холста
         self._fc.resize(400, 400)
         self._fc.move(20, 20)
-
         # Первичное построение фигуры
         self.plot_lissajous_figure()
         self.resize(650, 440)
@@ -131,15 +127,18 @@ class LissajousWindow(qt.QMainWindow):
         """
         Обработчик нажатия на кнопку сохранения настроек
         """
-        file_path, _ = qt.QFileDialog.getSaveFileName(self, "Сохранение изображения", "",
-                                                            "PNG(*.png);;JPEG(*.jpg *.jpeg);;All Files(*.*) ")
+        file_path, _ = qt.QFileDialog.getSaveFileName(
+                    self,
+                    "Сохранение изображения",
+                    "",
+                    "PNG(*.png);;JPEG(*.jpg *.jpeg);;All Files(*.*) ")
 
         if file_path == "":
             return
 
-        #raise NotImplementedError("Тут всего одной строчки не хватает.")
+        # raise NotImplementedError("Тут всего одной строчки не хватает.")
         # (?..)
-        
+
         # Сохраняем изображение с указанным в текстовом поле
         # разрешением.
         self.desired_image_width = int(self.image_size_lineedit.text())
@@ -148,8 +147,8 @@ class LissajousWindow(qt.QMainWindow):
         figure.set_size_inches(self.desired_image_width / self.dpi,
                                self.desired_image_width / self.dpi)
         plt.savefig(file_path, dpi=self.dpi)
-        # Меняем размер фигуры обратно. 
-        figure.set_size_inches(self.default_inches,self.default_inches)
+        # Меняем размер фигуры обратно.
+        figure.set_size_inches(self.default_inches, self.default_inches)
         # TODO: либо сохранять измененную копию объекта-фигуры, либо иначе.
 
 if __name__ == "__main__":
